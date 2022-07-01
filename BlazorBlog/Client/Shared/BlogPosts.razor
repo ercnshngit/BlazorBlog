@@ -1,0 +1,22 @@
+﻿@using BlazorBlog.Shared
+@inject BlazorBlog.Client.Services.IBlogService BlogService
+@foreach (var post in Posts)
+{
+	<div>
+		<h3>
+			@post.Title
+		</h3>
+		<p>
+			@post.Content
+		</p>
+		<a href="/posts/@post.Slug">Devamını Gör >></a>
+	</div>
+}
+
+@code {
+	private List<BlogPost> Posts = new List<BlogPost>();
+	protected override async Task OnInitializedAsync()
+	{
+		Posts = await BlogService.GetBlogPosts();
+	}
+}
